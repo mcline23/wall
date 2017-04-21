@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <h2>Register</h2>
+            <form action="register" method = "POST">
+                <label for="fname">First Name: </label>
+                 <input type="text" id = "fname" name = "FirstName"><br>
+                <label for="lname">Last Name: </label>
+                 <input type="text" name = "LastName"><br>
+                <label for="email">Email Address:</label>
+                 <input type="text" id = "email" name = "Email"><br>
+                <label for="password">Password: </label>
+                 <input type="password" id = "password" name = "Password"><br>
+                <label for="passwordconfirm">Password Confirmation: </label>
+                 <input type="password" id="passwordconfirm" name = "Passwordconfirm"><br>
+                 <input type="submit" value="Register">
+            </form>
+Message:
+                    @{
+                    foreach(var error in @ViewBag.Regerror){
+                        if (@error.Errors.Count > 0){
+
+                            <p>@error.Errors[0].ErrorMessage</p>
+                        }
+                    }
+                }
+
+
+    <h3>Login</h3>
+        <form action="login" method = "POST">
+            <label for="email"> Email: </label>
+                <input type="text" id = "email" name = "email"><br>
+            <label for="password"> Password: </label>
+                <input type="text" id = "password" name = "password"><br>
+                <input type="submit" value = "Login">
+        </form>
+
+        <p>@ViewBag.message</p>

@@ -1,0 +1,66 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<h3>Coding Dojo Wall</h3>
+<h4> Welcome @ViewBag.name </h4>
+    <form action="logout" method ="POST">
+        <input type="submit" value = "Logout">
+    </form>
+
+    <form action="postmessage" method = "POST">
+        <h4>Post a Message</h4>
+        <textarea name = "message" rows="4" cols="125"></textarea>
+        <input type="submit" value = "Post a Message">
+    </form>
+
+
+
+         @{
+                    foreach(var error in @ViewBag.Regerror){
+                        if (@error.Errors.Count > 0){
+
+                            <p>@error.Errors[0].ErrorMessage</p>
+                        }
+                    }
+                }
+        
+             @{ 
+            foreach(var message in ViewBag.messages){
+                    <p>@message["message"]</p>
+                    <p>@message["created_at"]</p>
+                    <p>@message["first_name"]</p>
+                    <p>@message["last_name"]</p>
+                    <p>@message["messageid"]</p>
+
+
+            if(ViewBag.id == @message["users_userid"]){
+                <form action='delete/@message["messageid"]' method = "POST">
+                    <input type="submit" value = "Delete yo">
+                </form>
+
+            }
+
+        
+            foreach(var comment in ViewBag.comments){
+                 if(comment["messages_messageid"] == message["messageid"]){
+                  
+                    <p>@comment["comment"]</p>
+                    <p>@comment["created_at"]</p>
+                    <p>@comment["first_name"]</p>
+                    <p>@comment["last_name"]</p>
+            }  }      
+
+                <form action = 'postcomment/@message["messageid"]' method = "POST">
+                    <textarea name = "comment" rows= "4" cols= "125"></textarea>
+                    <input type = "submit" value ="Post a Comment">
+                    <input type="hidden" value= '@message["messageid"]' name= "msgid">
+                </form>
+                
+            }
+
+             }
+        
+             
+
